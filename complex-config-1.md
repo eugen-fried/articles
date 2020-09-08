@@ -37,4 +37,11 @@ similar structure and many values. It's becoming more and more difficult to intr
 
 
 ## Can We Do Better? (Approach #3)
-
+Let's take a look at a the very specific problem we want to solve. On one hand we have a lot of code that is shared among the "siblings", on the other there are parts that differ, some differ in every deployment while others are just specific exceptions.
+Does this look familiar? Of course it does, it reminds us of one of the greatest principles of object oriented programming: hierarchy. A generic configuration which is never used on it's own containing all relevant placeholders and common configs is our 
+abstract class, specific environments are subclasses and this also gives us the possibility to "extend subclasses" (having a customer-specific deployment for example). So now the question is, how could we implement the approach in place and make 
+the configuration files act like OOP classes.
+Note: I have to give credits for the idea my previous tech lead Grigory Tukmachev who insisted on this approach instead of simple copy pasting. Huge kudos to him, as it made the almost impossible task of configuring and debugging ~30 modules in 5 
+production environments a little more manageable.
+### Tools at Our Disposal
+Being a mostly JVM programmer I will use the following two tools to cope with this task: Thymeleaf template engine and Typesafe config. I'm sure any other mature programming environment should have something similar, but from now on we are in the JVM world.
